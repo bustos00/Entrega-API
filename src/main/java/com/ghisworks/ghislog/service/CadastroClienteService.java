@@ -15,7 +15,12 @@ public class CadastroClienteService {
 	
 	private ClienteRepository clienteRepository;
 	
-	@Transactional
+	 public Cliente buscar(Long clienteId) {
+		return clienteRepository.findById(clienteId)
+				.orElseThrow(() -> new ExceptionNegocio("Cliente não encontrado"));
+	 }
+	
+	@Transactional 
 	public Cliente salvar(Cliente cliente) {
 		boolean emailEmUso = clienteRepository.findByEmail(cliente.getEmail())
 				.stream()
